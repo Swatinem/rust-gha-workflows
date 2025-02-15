@@ -1,0 +1,16 @@
+[package]
+name = "rust-gha-workflows-demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[dev-dependencies]
+divan = { version = "2.8.0", package = "codspeed-divan-compat" }
+
+[profile.bench]
+debug = "line-tables-only"
+
+[[bench]]
+name = "example"
+harness = false
