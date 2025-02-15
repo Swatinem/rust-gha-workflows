@@ -1,7 +1,11 @@
 [package]
 name = "rust-gha-workflows-demo"
 version = "0.1.0"
+description = "A demo crate to test GHA workflows"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Swatinem/rust-gha-workflows"
 edition = "2021"
+rust-version = "1.83"
 
 [dependencies]
 
