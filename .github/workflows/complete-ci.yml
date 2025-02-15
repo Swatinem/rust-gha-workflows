@@ -27,7 +27,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - run: cargo fmt --all -- --check
-      - run: cargo clippy --workspace --all-features --all-targets -- -D clippy::all
+      - run: cargo clippy --locked --workspace --all-features --all-targets -- -D clippy::all
       - uses: obi1kenobi/cargo-semver-checks-action@v2
 
   doc:
@@ -39,8 +39,8 @@ jobs:
       - run: rustup show active-toolchain
       - uses: Swatinem/rust-cache@v2
 
-      - run: cargo test --workspace --all-features --doc
-      - run: cargo doc --workspace --all-features --document-private-items --no-deps
+      - run: cargo test --locked --workspace --all-features --doc
+      - run: cargo doc --locked --workspace --all-features --document-private-items --no-deps
 
   test:
     strategy:
@@ -59,7 +59,7 @@ jobs:
       - uses: taiki-e/install-action@nextest
       - uses: Swatinem/rust-cache@v2
 
-      - run: cargo llvm-cov nextest --workspace --all-features --lib --bins --examples --tests --lcov --output-path lcov.info
+      - run: cargo llvm-cov nextest --locked --workspace --all-features --lib --bins --examples --tests --lcov --output-path lcov.info
 
       - uses: codecov/test-results-action@v1
         if: ${{ !cancelled() }}
@@ -85,7 +85,7 @@ jobs:
       - run: cargo binstall cargo-codspeed
       - uses: Swatinem/rust-cache@v2
 
-      - run: cargo codspeed build
+      - run: cargo codspeed build --workspace
       - uses: CodSpeedHQ/action@v3
         with:
           token: ${{ secrets.CODSPEED_TOKEN }}
@@ -101,4 +101,4 @@ jobs:
       - run: cargo +nightly miri setup
       - uses: taiki-e/install-action@nextest
 
-      - run: cargo +nightly miri nextest run --workspace --all-features --lib --bins --examples --tests
+      - run: cargo +nightly miri nextest run --locked --workspace --all-features --lib --bins --examples --tests
